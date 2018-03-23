@@ -1,0 +1,52 @@
+
+.wrapper {
+  min-height: calc(100vh - 5rem);
+  border-style: solid;
+  border-color: lightcoral;
+}
+
+.material-icons.orange600 {
+  color: #FB8C00;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+fieldset {
+  border-width: 0px 1px 1px 0px;
+  border-radius: 20px;
+  margin: 0px;
+  padding: 0px 0px;
+}
+
+legend {
+  text-align: center;
+}
+
+textarea {
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+}
+
+button.btn,
+a.btn,
+div.btn {
+  font-size: 10px;
+  height: 30px;
+  width: auto;
+  align-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+div p {
+  text-align: center
+}
+
+.wrapper, footer,
+nav {
+  max-width: 760px;
+  margin: auto;
+}
