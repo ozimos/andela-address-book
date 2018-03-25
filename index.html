@@ -7,8 +7,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
-  <link rel="stylesheet" href="css/materialize.min.css">
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
   <title>Address Book</title>
 </head>
 
@@ -17,36 +19,56 @@
     <h1>Address Book</h1>
   </header>
   <main>
-    <table>
+    <table class="highlight striped">
 
     </table>
     <div id="edit" class="hide">
       <div id="main2">
-        <form action="" id="contact">
-          <fieldset>
-            <legend> Full Name of contact </legend>
-            <input type="text" name="contactName" id="contactName" placeholder="Albert Random">
+        <div id="controls">
+          <button onclick="listContacts()" class="waves-effect waves-light btn view">
+            <i class="material-icons left">arrow_back</i>Back
+          </button>
+          <button onclick="toggleEdit()" class="waves-effect waves-light btn view">
+              <i class="material-icons left">edit</i>edit
+            </button>
+          <button id="save" class="waves-effect waves-light btn hide" form="contact" type="submit"> Save
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+        <form action="" id="contact" onsubmit="submitForm(event)">
+          <fieldset disabled>
+            <legend> Full Name of Contact </legend>
+            <i class="material-icons prefix">account_circle</i>
+            <input type="text" name="contactName" id="contactName" required placeholder="Albert Random">
           </fieldset>
-          <fieldset id="allEmail">
+          <fieldset  disabled id="allEmail">
             <legend for="allEmail">Email</legend>
+            <i class="material-icons prefix">email</i>
+
             <input type="email" name="contactEmail" placeholder="random.a@gamail.com">
-            <button id="addEmail">Add email field</button>
+            <button class="waves-effect waves-light btn" type="button" id="addEmail">Add email field
+              <i class="material-icons left">add</i>
+            </button>
           </fieldset>
 
-          <fieldset id="allPhone">
+          <fieldset disabled id="allPhone">
             <legend for="allPhone">Phone</legend>
+            <i class="material-icons prefix">phone</i>
             <input type="tel" name="contactPhone" placeholder="08034328849">
-            <button id="addPhone">Add phone number field</button>
+            <button class="waves-effect waves-light btn" type="button" id="addPhone">Add phone number field
+              <i class="material-icons left">add</i>
+            </button>
           </fieldset>
-          <fieldset>
+          <fieldset disabled>
             <legend>Select photo for contacts</legend>
-            <input type="file" name="contactImage" id="image">
+            <input type="file" name="contactImage" id="image" onchange="loadFile(event)">
           </fieldset>
         </form>
       </div>
       <aside>
-        <img src="img/random.jpg" alt="">
+        <img class="responsive-img circle" id="profilePic" src="img/random.jpg" alt="">
       </aside>
+
     </div>
   </main>
 

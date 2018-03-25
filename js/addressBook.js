@@ -1,67 +1,81 @@
 const addressBook = [{
-  name: 'Randall Random',
-  email: ['random.a@gamail.com'],
+  name: 'Recurse Random',
+  email: ['random.r@gamail.com'],
   phone: ['08034328849'],
   image: 'img/random.jpg'
 },
 {
-  name: 'Bertha Brownian',
+  name: 'Bayes Brown',
   email: ['brownian.b@gamail.com'],
   phone: ['08034328849'],
   image: 'img/random.jpg'
 },
 {
-  name: 'Chris Chance',
-  email: ['chaos.c@gamail.com'],
+  name: 'Chaos Chance',
+  email: ['chance.c@gamail.com'],
   phone: ['08034328849'],
   image: 'img/random.jpg'
 },
 {
-  name: 'Dorothy Disorder',
-  email: ['choas.c@gamail.com'],
+  name: 'Destroy Distribution',
+  email: ['distribution.d@gamail.com'],
   phone: ['08034328849'],
   image: 'img/random.jpg'
 },
 {
-  name: 'Edwin Entropy',
-  email: ['choas.c@gamail.com'],
+  name: 'Evolution Entropy',
+  email: ['entropy.e@gamail.com'],
   phone: ['08034328849'],
   image: 'img/random.jpg'
 },
-
+{
+  name: 'Fractal Fibonacci',
+  email: ['fibonacci.f@gamail.com'],
+  phone: ['08034328849'],
+  image: 'img/random.jpg'
+},
 ];
 
-function addEmail(event) {
-  event.preventDefault();
-  if (this === event.target) {
-    this.insertAdjacentHTML('beforebegin', '<input type="email" name="contactEmail" placeholder="email address">');
-  }
-}
-
-function addPhone(event) {
-  event.preventDefault();
-  if (this !== event.target) {
-    return;
-  }
-  this.insertAdjacentHTML('beforebegin', '<input type="tel" name="contactPhone" placeholder="phone">');
-}
+let url = '';
+let index = null;
+const form = document.forms[0];
 const emailButton = document.getElementById('addEmail');
 const phoneButton = document.getElementById('addPhone');
 const table = document.querySelector('table');
+const edit = document.getElementById('edit');
+const profilePic = document.getElementById('profilePic');
 
-if (emailButton) {
-  emailButton.onclick = addEmail;
-  phoneButton.onclick = addPhone;
+const removeButton = '<button onclick="removeField(event)" class="waves-effect waves-light btn col s1" type="button"><i class="material-icons">close</i></button>';
+
+function removeField(event) {
+  event.target.closest('div').remove();
+}
+
+function addEmail(event) {
+  this.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="email" name="contactEmail" required placeholder="email">${removeButton}</div>`);
+  event.preventDefault();
+}
+
+function addPhone(event) {
+  this.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="tel" name="contactPhone" required placeholder="phone">${removeButton}</div>`);
+  event.preventDefault();
 }
 
 
-function showContacts() {
+emailButton.onclick = addEmail;
+phoneButton.onclick = addPhone;
+
+
+function listContacts() {
+  index = null;
+  table.classList.remove('hide');
+  edit.classList.add('hide');
   let result = '';
-  addressBook.forEach((contact, index) => {
+  addressBook.forEach((contact, pos) => {
     const row = `<tr>
-<td class="hide">${index + 1}</td>
-<td><button onclick="">${contact.name}</button></td>
-<td><button>X</button></td>
+<td class="hide">${pos}</td>
+<td><button>${contact.name}</button></td>
+<td><button class="btn-floating btn-large cyan pulse"><i class="material-icons">delete</i></button></td>
 </tr>`;
     result += row;
   });
@@ -72,32 +86,73 @@ function showContacts() {
   });
   const editButtons = table.querySelectorAll('td:nth-child(2)>button');
   editButtons.forEach((button) => {
-    button.onclick = editContact;
+    button.onclick = viewContact;
   });
 }
 
-function editContact() {
+function loadFile(event) {
+  url = URL.createObjectURL(event.target.files[0]);
+  profilePic.src = url;
+}
+
+function submitForm(event) {
+  event.preventDefault();
+
+  const contact = addressBook[index];
+  contact.name = form.contactName.value;
+
+  function pageToStore(source, dest) {
+    if (form[source] instanceof Array) {
+      form[source].forEach((entry, pos) => {
+        contact[dest][pos] = entry.value;
+      });
+      contact[dest].splice(form[source].length - 1);
+    } else {
+      contact[dest][0] = form[source].value;
+    }
+  }
+  pageToStore('contactEmail', 'email');
+  pageToStore('contactPhone', 'phone');
+
+  contact.image = url || contact.image;
+  url = '';
+  viewContact();
+  toggleEdit();
+}
+
+function toggleEdit() {
+  document.querySelectorAll('fieldset').forEach((entry) => {
+    if (entry.disabled) {
+      entry.removeAttribute('disabled');
+    } else {
+      entry.setAttribute('disabled', 'disabled');
+    }
+  });
+  document.querySelectorAll('.view').forEach(entry => entry.classList.toggle('hide'));
+  document.querySelector('#save').classList.toggle('hide');
+}
+
+function viewContact() {
   table.classList.add('hide');
-  document.querySelector('#edit').classList.remove('hide');
-  const index = this.closest('tr').cells[0].innerHTML;
-  const contact = addressBook[index - 1];
-  const form = document.forms[0];
+  edit.classList.remove('hide');
+  index = index || this.closest('tr').cells[0].innerHTML;
+  const contact = addressBook[index];
 
   form.contactName.value = contact.name;
   form.contactEmail.value = contact.email[0];
   form.contactPhone.value = contact.phone[0];
-
+  profilePic.src = contact.image;
   for (let n = 1; n < contact.email.length; n += 1) {
-    emailButton.insertAdjacentHTML('beforebegin', `<input type="email" name="contactEmail" value="${contact.email[n]}">`);
+    emailButton.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="email" required name="contactEmail" value="${contact.email[n]}">${removeButton}</div>`);
   }
   for (let n = 1; n < contact.phone.length; n += 1) {
-    phoneButton.insertAdjacentHTML('beforebegin', `<input type="tel" name="contactPhone" value="${contact.phone[n]}">`);
+    phoneButton.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="tel" required name="contactPhone"  value="${contact.phone[n]}">${removeButton}</div>`);
   }
 }
 
 function deleteContact() {
-  const index = this.closest('tr').cells[0].innerHTML;
-  addressBook.splice(index - 1, 1);
-  showContacts();
+  const row = this.closest('tr').cells[0].innerHTML;
+  addressBook.splice(row, 1);
+  listContacts();
 }
-document.addEventListener('DOMContentLoaded', showContacts);
+document.addEventListener('DOMContentLoaded', listContacts);

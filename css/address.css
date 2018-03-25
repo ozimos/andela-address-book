@@ -3,25 +3,17 @@ header{
   text-align: center;
 }
 
-form, aside {
-  padding: 20px;
+main {
+  padding: 0 20px;
 }
 input{
-  display: block;
   margin: 10px 0;
   background-color: orange;
-  width: 100%;
 }
 fieldset{
   border: none;
 }
-aside img{
-  max-width: 100%;
-  height: auto;
-}
-.hide{
-display: none;
-}
+
 td:last-child{
 width: 5px;
 }
@@ -30,4 +22,11 @@ td:nth-child(2)>button{
 }
 table{
   font-size: 3em;
+}
+#controls{
+  display: flex;
+  justify-content: space-around;
+}
+#save{
+  align-self: flex-end;
 }

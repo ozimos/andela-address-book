@@ -35,9 +35,10 @@
         "ClassDeclaration": true
       }
     }],
+    "no-unused-vars": 0,
     "linebreak-style":"off",
     "no-use-before-define": "off",
-    "prefer-destructuring": "warn",
+    "prefer-destructuring": "off",
     "import/extensions": ["error", [
       "never",
       {
