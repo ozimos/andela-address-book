@@ -129,7 +129,14 @@ function toggleEdit() {
     }
   });
   document.querySelectorAll('.view').forEach(entry => entry.classList.toggle('hide'));
-  document.querySelector('#save').classList.toggle('hide');
+  document.getElementById('#save').classList.toggle('hide');
+}
+function newContact() {
+  table.classList.add('hide');
+  edit.classList.remove('hide');
+  document.getElementById('#save').classList.toggle('hide');
+  document.getElementById('#new').classList.toggle('hide');
+  index = addressBook.length;
 }
 
 function viewContact() {
