@@ -2,7 +2,7 @@ header {
   background-color: blue;
 }
 
-main {
+body {
   padding: 0 20px;
 }
 
@@ -26,7 +26,9 @@ td:nth-child(2)>button {
 table {
   font-size: 3em;
 }
-
+/* .hide{
+  display: none;
+} */
 #controls {
   display: flex;
   justify-content: space-around;
@@ -39,4 +41,26 @@ table {
 .responsive-img {
   min-width: 100px;
   max-width: 200px;
+}
+#edit nav{
+  grid-area: nav;
+}
+form{
+  grid-area: form;
+}
+aside{
+  grid-area: as;
+}
+@media screen and (min-width: 600px) {
+	@supports (display: grid) {
+		#edit {
+			display: grid;
+			grid-template-columns: repeat(6, 1fr) ;
+			grid-template-areas:
+      "nav 	nav  nav 	nav  nav 	nav"
+			"form form form form form as"
+			"form form form form form .";
+		}
+
+	}
 }

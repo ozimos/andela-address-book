@@ -2,8 +2,6 @@
 <html lang="en">
 
 <head>
-  <!--Import materialize.css-->
-  <link rel="stylesheet" href="css/address.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -11,76 +9,72 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+  <link rel="stylesheet" href="css/address.css">
   <title>Address Book</title>
 </head>
 
 <body>
-  <div id="list">
+  <header>
     <nav>
       <div class="nav-wrapper">
         <a href="#" disabled class="brand-logo">Address Book</a>
-        <div id="controls" class="right">
+        <ul id="controls" class="right list">
 
-          <button id="new" onclick="newContact()" class="waves-effect waves-light btn"> New
+          <button id="new" onclick="newContact()" class="waves-effect waves-light btn list"> New
             <i class="material-icons right">add</i>
           </button>
-        </div>
-      </div>
-    </nav>
-    <table class="highlight striped">
+        </ul>
+        <ul id="controls" class="right edit hide">
 
-    </table>
-  </div>
-
-  <div id="edit" class="hide">
-    <nav>
-      <div class="nav-wrapper">
-        <a href="#" disabled class="brand-logo">Address Book</a>
-        <div id="controls" class="right">
-          <button onclick="listContacts()" class="waves-effect waves-light btn view">
+          <button onclick="toggleView(); listContacts();" class="waves-effect waves-light btn view edit hide">
             <i class="material-icons left">arrow_back</i>Back
           </button>
-          <button onclick="toggleEdit()" class="waves-effect waves-light btn view">
+          <button onclick="toggleEdit()" class="waves-effect waves-light btn view edit hide">
             <i class="material-icons left">edit</i>edit
           </button>
           <button id="save" class="waves-effect waves-light btn hide" form="contact" type="submit"> Save
             <i class="material-icons right">send</i>
           </button>
-        </div>
+        </ul>
       </div>
     </nav>
-    <div id="main2">
+  </header>
 
-      <form action="" id="contact" onsubmit="submitForm(event)">
-        <fieldset disabled>
-          <legend> Full Name of Contact </legend>
-          <i class="material-icons prefix">account_circle</i>
-          <input type="text" name="contactName" id="contactName" required placeholder="Name">
-        </fieldset>
-        <fieldset disabled id="allEmail">
-          <legend for="allEmail">Email</legend>
-          <i class="material-icons prefix">email</i>
+  <table class="list highlight striped">
 
-          <input type="email" name="contactEmail" placeholder="email">
-          <button class="waves-effect waves-light btn" type="button" id="addEmail">Add email field
-            <i class="material-icons left">add</i>
-          </button>
-        </fieldset>
+  </table>
 
-        <fieldset disabled id="allPhone">
-          <legend for="allPhone">Phone</legend>
-          <i class="material-icons prefix">phone</i>
-          <input type="tel" name="contactPhone" placeholder="phone">
-          <button class="waves-effect waves-light btn" type="button" id="addPhone">Add phone number field
-            <i class="material-icons left">add</i>
-          </button>
-        </fieldset>
-        <fieldset disabled>
-          <legend>Select photo for contacts</legend>
-          <input type="file" name="contactImage" id="image" onchange="loadFile(event)">
-        </fieldset>
-      </form>
-    </div>
+  <div id="edit" class="edit hide">
+
+    <form action="" id="contact" onsubmit="submitForm(event)">
+      <fieldset disabled>
+        <legend> Full Name of Contact </legend>
+        <i class="material-icons prefix">account_circle</i>
+        <input type="text" name="contactName" id="contactName" required placeholder="Name">
+      </fieldset>
+      <fieldset disabled id="allEmail">
+        <legend for="allEmail">Email</legend>
+        <i class="material-icons prefix">email</i>
+
+        <input type="email" name="contactEmail" placeholder="email">
+        <button class="waves-effect waves-light btn" type="button" id="addEmail">Add email field
+          <i class="material-icons left">add</i>
+        </button>
+      </fieldset>
+
+      <fieldset disabled id="allPhone">
+        <legend for="allPhone">Phone</legend>
+        <i class="material-icons prefix">phone</i>
+        <input type="tel" name="contactPhone" placeholder="phone">
+        <button class="waves-effect waves-light btn" type="button" id="addPhone">Add phone number field
+          <i class="material-icons left">add</i>
+        </button>
+      </fieldset>
+      <fieldset disabled>
+        <legend>Select photo for contacts</legend>
+        <input type="file" name="contactImage" id="image" onchange="loadFile(event)">
+      </fieldset>
+    </form>
     <aside>
       <img class="responsive-img circle" id="profilePic" src="img/profile-pic.svg" alt="">
     </aside>

@@ -42,8 +42,8 @@ const form = document.forms[0];
 const emailButton = document.getElementById('addEmail');
 const phoneButton = document.getElementById('addPhone');
 const table = document.querySelector('table');
-const edit = document.getElementById('edit');
-const list = document.getElementById('list');
+const edit = document.querySelectorAll('.edit');
+const list = document.querySelectorAll('.list');
 const profilePic = document.getElementById('profilePic');
 
 const removeButton = '<button onclick="removeField(event)" class="waves-effect waves-light btn col s1" type="button"><i class="material-icons">close</i></button>';
@@ -66,11 +66,13 @@ function addPhone(event) {
 emailButton.onclick = addEmail;
 phoneButton.onclick = addPhone;
 
+function toggleView() {
+  list.forEach(elem => elem.classList.toggle('hide'));
+  edit.forEach(elem => elem.classList.toggle('hide'));
+}
 
 function listContacts() {
   index = null;
-  list.classList.remove('hide');
-  edit.classList.add('hide');
   let result = '';
   addressBook.forEach((contact, pos) => {
     const row = `<tr>
@@ -142,14 +144,13 @@ function toggleEdit() {
 }
 
 function newContact() {
-  list.classList.add('hide');
-  edit.classList.remove('hide');
+  toggleView();
   toggleEdit();
 }
 
 function viewContact() {
-  list.classList.add('hide');
-  edit.classList.remove('hide');
+  toggleView();
+
   index = index || this.closest('tr').cells[0].innerHTML;
   const contact = addressBook[index];
 
