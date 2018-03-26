@@ -127,7 +127,6 @@ function submitForm(event) {
     index = addressBook.length - 1;
   }
   url = '';
-  viewContact();
   toggleEdit();
 }
 
@@ -140,12 +139,31 @@ function toggleEdit() {
     }
   });
   document.querySelectorAll('.view').forEach(entry => entry.classList.toggle('hide'));
-  document.getElementById('save').classList.toggle('hide');
+  document.querySelectorAll('.save').forEach(entry => entry.classList.toggle('hide'));
 }
 
 function newContact() {
   toggleView();
   toggleEdit();
+}
+
+function resetForm() {
+  const elems = document.querySelectorAll('fieldset>input:not(:first-of-type)');
+  elems.forEach(elem => elem.remove());
+  form.reset();
+  profilePic.setAttribute('src', 'img/profile-pic.svg');
+}
+
+function backToMain() {
+  index = null;
+  toggleView();
+  listContacts();
+  resetForm();
+}
+
+function backToMain2() {
+  toggleEdit();
+  backToMain();
 }
 
 function viewContact() {

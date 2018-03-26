@@ -21,19 +21,25 @@
         <ul id="controls" class="right list">
 
           <button id="new" onclick="newContact()" class="waves-effect waves-light btn list"> New
-            <i class="material-icons right">add</i>
+            <i class="material-icons right">add_circle_outline</i>
           </button>
         </ul>
         <ul id="controls" class="right edit hide">
 
-          <button onclick="toggleView(); listContacts();" class="waves-effect waves-light btn view edit hide">
+          <button onclick="backToMain2()" class="waves-effect waves-light btn save hide">
             <i class="material-icons left">arrow_back</i>Back
           </button>
+          <button onclick="backToMain()" class="waves-effect waves-light btn view edit hide">
+              <i class="material-icons left">arrow_back</i>Back
+            </button>
           <button onclick="toggleEdit()" class="waves-effect waves-light btn view edit hide">
             <i class="material-icons left">edit</i>edit
           </button>
-          <button id="save" class="waves-effect waves-light btn hide" form="contact" type="submit"> Save
-            <i class="material-icons right">send</i>
+          <button  class="save waves-effect waves-light btn hide" form="contact" type="reset"> Reset
+              <i class="material-icons right">clear_all</i>
+            </button>
+          <button id="save" class="save waves-effect waves-light btn hide" form="contact" type="submit"> Save
+            <i class="material-icons right">done</i>
           </button>
         </ul>
       </div>
@@ -57,7 +63,7 @@
         <i class="material-icons prefix">email</i>
 
         <input type="email" name="contactEmail" placeholder="email">
-        <button class="waves-effect waves-light btn" type="button" id="addEmail">Add email field
+        <button class="save hide waves-effect waves-light btn" type="button" id="addEmail">Add email field
           <i class="material-icons left">add</i>
         </button>
       </fieldset>
@@ -66,11 +72,11 @@
         <legend for="allPhone">Phone</legend>
         <i class="material-icons prefix">phone</i>
         <input type="tel" name="contactPhone" placeholder="phone">
-        <button class="waves-effect waves-light btn" type="button" id="addPhone">Add phone number field
+        <button class="save hide waves-effect waves-light btn" type="button" id="addPhone">Add phone number field
           <i class="material-icons left">add</i>
         </button>
       </fieldset>
-      <fieldset disabled>
+      <fieldset disabled class="save hide">
         <legend>Select photo for contacts</legend>
         <input type="file" name="contactImage" id="image" onchange="loadFile(event)">
       </fieldset>
