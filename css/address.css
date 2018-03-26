@@ -1,31 +1,42 @@
-header{
+header {
   background-color: blue;
 }
 
 main {
   padding: 0 20px;
 }
-input{
+
+input {
   margin: 10px 0;
   background-color: orange;
 }
-fieldset{
+
+fieldset {
   border: none;
 }
 
-td:last-child{
-width: 5px;
+td:last-child {
+  width: 5px;
 }
-td:nth-child(2)>button{
+
+td:nth-child(2)>button {
   width: 100%;
 }
-table{
+
+table {
   font-size: 3em;
 }
-#controls{
+
+#controls {
   display: flex;
   justify-content: space-around;
 }
-#save{
+
+#save {
   align-self: flex-end;
+}
+
+.responsive-img {
+  min-width: 100px;
+  max-width: 200px;
 }

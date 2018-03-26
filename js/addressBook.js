@@ -43,6 +43,7 @@ const emailButton = document.getElementById('addEmail');
 const phoneButton = document.getElementById('addPhone');
 const table = document.querySelector('table');
 const edit = document.getElementById('edit');
+const list = document.getElementById('list');
 const profilePic = document.getElementById('profilePic');
 
 const removeButton = '<button onclick="removeField(event)" class="waves-effect waves-light btn col s1" type="button"><i class="material-icons">close</i></button>';
@@ -68,7 +69,7 @@ phoneButton.onclick = addPhone;
 
 function listContacts() {
   index = null;
-  table.classList.remove('hide');
+  list.classList.remove('hide');
   edit.classList.add('hide');
   let result = '';
   addressBook.forEach((contact, pos) => {
@@ -98,7 +99,11 @@ function loadFile(event) {
 function submitForm(event) {
   event.preventDefault();
 
-  const contact = addressBook[index];
+  const contact = addressBook[index] || {
+    email: [],
+    phone: [],
+    url: ''
+  };
   contact.name = form.contactName.value;
 
   function pageToStore(source, dest) {
@@ -115,6 +120,10 @@ function submitForm(event) {
   pageToStore('contactPhone', 'phone');
 
   contact.image = url || contact.image;
+  if (!index) {
+    addressBook.push(contact);
+    index = addressBook.length - 1;
+  }
   url = '';
   viewContact();
   toggleEdit();
@@ -129,18 +138,17 @@ function toggleEdit() {
     }
   });
   document.querySelectorAll('.view').forEach(entry => entry.classList.toggle('hide'));
-  document.getElementById('#save').classList.toggle('hide');
+  document.getElementById('save').classList.toggle('hide');
 }
+
 function newContact() {
-  table.classList.add('hide');
+  list.classList.add('hide');
   edit.classList.remove('hide');
-  document.getElementById('#save').classList.toggle('hide');
-  document.getElementById('#new').classList.toggle('hide');
-  index = addressBook.length;
+  toggleEdit();
 }
 
 function viewContact() {
-  table.classList.add('hide');
+  list.classList.add('hide');
   edit.classList.remove('hide');
   index = index || this.closest('tr').cells[0].innerHTML;
   const contact = addressBook[index];

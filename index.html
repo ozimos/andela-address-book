@@ -15,80 +15,77 @@
 </head>
 
 <body>
-  <header>
-     <nav>
-    <div class="nav-wrapper">
-      <a href="#" disabled class="brand-logo">Address Book</a>
-      <div id="controls" class="right">
-          <button onclick="listContacts()" class="waves-effect waves-light btn view">
-            <i class="material-icons left">arrow_back</i>Back
+  <div id="list">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" disabled class="brand-logo">Address Book</a>
+        <div id="controls" class="right">
+
+          <button id="new" onclick="newContact()" class="waves-effect waves-light btn"> New
+            <i class="material-icons right">add</i>
           </button>
-          <button onclick="toggleEdit()" class="waves-effect waves-light btn view">
-              <i class="material-icons left">edit</i>edit
-            </button>
-          <button id="save" class="waves-effect waves-light btn hide" form="contact" type="submit"> Save
-            <i class="material-icons right">send</i>
-          </button>
-          <button  id="new" onclick="newContact()" class="waves-effect waves-light btn"> New
-              <i class="material-icons right">add</i>
-            </button>
         </div>
-    </div>
-  </nav>
-  </header>
-  <main>
+      </div>
+    </nav>
     <table class="highlight striped">
 
     </table>
-    <div id="edit" class="hide">
-      <div id="main2">
-        <div id="controls">
+  </div>
+
+  <div id="edit" class="hide">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" disabled class="brand-logo">Address Book</a>
+        <div id="controls" class="right">
           <button onclick="listContacts()" class="waves-effect waves-light btn view">
             <i class="material-icons left">arrow_back</i>Back
           </button>
           <button onclick="toggleEdit()" class="waves-effect waves-light btn view">
-              <i class="material-icons left">edit</i>edit
-            </button>
+            <i class="material-icons left">edit</i>edit
+          </button>
           <button id="save" class="waves-effect waves-light btn hide" form="contact" type="submit"> Save
             <i class="material-icons right">send</i>
           </button>
         </div>
-        <form action="" id="contact" onsubmit="submitForm(event)">
-          <fieldset disabled>
-            <legend> Full Name of Contact </legend>
-            <i class="material-icons prefix">account_circle</i>
-            <input type="text" name="contactName" id="contactName" required placeholder="Albert Random">
-          </fieldset>
-          <fieldset  disabled id="allEmail">
-            <legend for="allEmail">Email</legend>
-            <i class="material-icons prefix">email</i>
-
-            <input type="email" name="contactEmail" placeholder="random.a@gamail.com">
-            <button class="waves-effect waves-light btn" type="button" id="addEmail">Add email field
-              <i class="material-icons left">add</i>
-            </button>
-          </fieldset>
-
-          <fieldset disabled id="allPhone">
-            <legend for="allPhone">Phone</legend>
-            <i class="material-icons prefix">phone</i>
-            <input type="tel" name="contactPhone" placeholder="08034328849">
-            <button class="waves-effect waves-light btn" type="button" id="addPhone">Add phone number field
-              <i class="material-icons left">add</i>
-            </button>
-          </fieldset>
-          <fieldset disabled>
-            <legend>Select photo for contacts</legend>
-            <input type="file" name="contactImage" id="image" onchange="loadFile(event)">
-          </fieldset>
-        </form>
       </div>
-      <aside>
-        <img class="responsive-img circle" id="profilePic" src="img/random.jpg" alt="">
-      </aside>
+    </nav>
+    <div id="main2">
 
+      <form action="" id="contact" onsubmit="submitForm(event)">
+        <fieldset disabled>
+          <legend> Full Name of Contact </legend>
+          <i class="material-icons prefix">account_circle</i>
+          <input type="text" name="contactName" id="contactName" required placeholder="Name">
+        </fieldset>
+        <fieldset disabled id="allEmail">
+          <legend for="allEmail">Email</legend>
+          <i class="material-icons prefix">email</i>
+
+          <input type="email" name="contactEmail" placeholder="email">
+          <button class="waves-effect waves-light btn" type="button" id="addEmail">Add email field
+            <i class="material-icons left">add</i>
+          </button>
+        </fieldset>
+
+        <fieldset disabled id="allPhone">
+          <legend for="allPhone">Phone</legend>
+          <i class="material-icons prefix">phone</i>
+          <input type="tel" name="contactPhone" placeholder="phone">
+          <button class="waves-effect waves-light btn" type="button" id="addPhone">Add phone number field
+            <i class="material-icons left">add</i>
+          </button>
+        </fieldset>
+        <fieldset disabled>
+          <legend>Select photo for contacts</legend>
+          <input type="file" name="contactImage" id="image" onchange="loadFile(event)">
+        </fieldset>
+      </form>
     </div>
-  </main>
+    <aside>
+      <img class="responsive-img circle" id="profilePic" src="img/profile-pic.svg" alt="">
+    </aside>
+
+  </div>
 
   <script src="js/addressBook.js"></script>
 </body>
