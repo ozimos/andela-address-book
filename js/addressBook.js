@@ -36,49 +36,28 @@ const addressBook = [{
 },
 ];
 
+// non DOM variables
 let url = '';
 let index = null;
+
+// DOM Element variable names
 const form = document.forms[0];
-const emailButton = document.getElementById('addEmail');
-const phoneButton = document.getElementById('addPhone');
+const addEmailButton = document.getElementById('addEmail');
+const addPhoneButton = document.getElementById('addPhone');
 const table = document.querySelector('table');
-const edit = document.querySelectorAll('.edit');
-const list = document.querySelectorAll('.list');
+const singleView = document.querySelectorAll('.singleView');
+const allView = document.querySelectorAll('.allView');
 const profilePic = document.getElementById('profilePic');
 
-const removeButton = '<button onclick="removeField(event)" class="waves-effect waves-light btn col s1" type="button"><i class="material-icons">close</i></button>';
-
-function removeField(event) {
-  event.target.closest('div').remove();
-}
-
-function addEmail(event) {
-  this.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="email" name="contactEmail" required placeholder="email">${removeButton}</div>`);
-  event.preventDefault();
-}
-
-function addPhone(event) {
-  this.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="tel" name="contactPhone" required placeholder="phone">${removeButton}</div>`);
-  event.preventDefault();
-}
-
-
-emailButton.onclick = addEmail;
-phoneButton.onclick = addPhone;
-
-function toggleView() {
-  list.forEach(elem => elem.classList.toggle('hide'));
-  edit.forEach(elem => elem.classList.toggle('hide'));
-}
-
+// table section main view
+// show all contacts
 function listContacts() {
   index = null;
   let result = '';
-  addressBook.forEach((contact, pos) => {
+  addressBook.forEach((contact) => {
     const row = `<tr>
-<td class="hide">${pos}</td>
 <td><button>${contact.name}</button></td>
-<td><button class="btn-floating btn-large cyan pulse"><i class="material-icons">delete</i></button></td>
+<td><button class="btn-floating btn-large cyan"><i class="material-icons">delete</i></button></td>
 </tr>`;
     result += row;
   });
@@ -87,24 +66,75 @@ function listContacts() {
   closeButtons.forEach((button) => {
     button.onclick = deleteContact;
   });
-  const editButtons = table.querySelectorAll('td:nth-child(2)>button');
+  const editButtons = table.querySelectorAll('td:first-child>button');
   editButtons.forEach((button) => {
     button.onclick = viewContact;
   });
 }
 
-function loadFile(event) {
-  url = URL.createObjectURL(event.target.files[0]);
-  profilePic.src = url;
+
+function deleteContact() {
+  const row = this.closest('tr').cells[0].innerHTML;
+  addressBook.splice(row, 1);
+  listContacts();
 }
 
+// form section
+
+// view contact no editing
+function viewContact() {
+  toggleView();
+
+  index = index || this.closest('tr').rowIndex;
+  const contact = addressBook[index];
+
+  form.contactName.value = contact.name;
+  form.contactEmail.value = contact.email[0];
+  form.contactPhone.value = contact.phone[0];
+  profilePic.src = contact.image;
+  for (let n = 1; n < contact.email.length; n += 1) {
+    addEmailButton.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="email" required name="contactEmail" value="${contact.email[n]}">${removeFieldButton}</div>`);
+  }
+  for (let n = 1; n < contact.phone.length; n += 1) {
+    addPhoneButton.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="tel" required name="contactPhone"  value="${contact.phone[n]}">${removeFieldButton}</div>`);
+  }
+}
+
+// form buttons
+// remove field handler
+
+const removeFieldButton = '<button onclick="removeField(event)" class="waves-effect waves-light btn col s1" type="button"><i class="material-icons">close</i></button>';
+
+function removeField(event) {
+  event.target.closest('div').remove();
+}
+
+// add field handlers
+
+function addEmail(event) {
+  this.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="email" name="contactEmail" required placeholder="email">${removeFieldButton}</div>`);
+  event.preventDefault();
+}
+
+function addPhone(event) {
+  this.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="tel" name="contactPhone" required placeholder="phone">${removeFieldButton}</div>`);
+  event.preventDefault();
+}
+
+
+addEmailButton.onclick = addEmail;
+addPhoneButton.onclick = addPhone;
+
+// end add field handler
+
+// form submit handler
 function submitForm(event) {
   event.preventDefault();
 
   const contact = addressBook[index] || {
     email: [],
     phone: [],
-    url: ''
+    image: ''
   };
   contact.name = form.contactName.value;
 
@@ -129,18 +159,20 @@ function submitForm(event) {
   url = '';
   toggleEdit();
 }
+// end form submit handler
 
-function toggleEdit() {
-  document.querySelectorAll('fieldset').forEach((entry) => {
-    if (entry.disabled) {
-      entry.removeAttribute('disabled');
-    } else {
-      entry.setAttribute('disabled', 'disabled');
-    }
-  });
-  document.querySelectorAll('.view').forEach(entry => entry.classList.toggle('hide'));
-  document.querySelectorAll('.save').forEach(entry => entry.classList.toggle('hide'));
+// create reference to image in local filesystem
+function loadFile(event) {
+  url = URL.createObjectURL(event.target.files[0]);
+  profilePic.src = url;
 }
+
+
+// end of form
+
+
+// navigation controls
+
 
 function newContact() {
   toggleView();
@@ -166,27 +198,24 @@ function backToMain2() {
   backToMain();
 }
 
-function viewContact() {
-  toggleView();
+// view helpers
 
-  index = index || this.closest('tr').cells[0].innerHTML;
-  const contact = addressBook[index];
-
-  form.contactName.value = contact.name;
-  form.contactEmail.value = contact.email[0];
-  form.contactPhone.value = contact.phone[0];
-  profilePic.src = contact.image;
-  for (let n = 1; n < contact.email.length; n += 1) {
-    emailButton.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="email" required name="contactEmail" value="${contact.email[n]}">${removeButton}</div>`);
-  }
-  for (let n = 1; n < contact.phone.length; n += 1) {
-    phoneButton.insertAdjacentHTML('beforebegin', `<div class="row input-field"><input class="col s11" type="tel" required name="contactPhone"  value="${contact.phone[n]}">${removeButton}</div>`);
-  }
+// toggle view between all contacts and single contact
+function toggleView() {
+  allView.forEach(elem => elem.classList.toggle('hide'));
+  singleView.forEach(elem => elem.classList.toggle('hide'));
+}
+// toggle view between view and edit
+function toggleEdit() {
+  document.querySelectorAll('fieldset').forEach((entry) => {
+    if (entry.disabled) {
+      entry.removeAttribute('disabled');
+    } else {
+      entry.setAttribute('disabled', 'disabled');
+    }
+  });
+  document.querySelectorAll('.view').forEach(entry => entry.classList.toggle('hide'));
+  document.querySelectorAll('.edit').forEach(entry => entry.classList.toggle('hide'));
 }
 
-function deleteContact() {
-  const row = this.closest('tr').cells[0].innerHTML;
-  addressBook.splice(row, 1);
-  listContacts();
-}
 document.addEventListener('DOMContentLoaded', listContacts);

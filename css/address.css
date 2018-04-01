@@ -26,9 +26,9 @@ td:nth-child(2)>button {
 table {
   font-size: 3em;
 }
-/* .hide{
+.hide{
   display: none;
-} */
+}
 #controls {
   display: flex;
   justify-content: space-around;
@@ -57,7 +57,6 @@ aside{
 			display: grid;
 			grid-template-columns: repeat(6, 1fr) ;
 			grid-template-areas:
-      "nav 	nav  nav 	nav  nav 	nav"
 			"form form form form form as"
 			"form form form form form .";
 		}

@@ -7,8 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
   <link rel="stylesheet" href="css/address.css">
   <title>Address Book</title>
 </head>
@@ -16,43 +14,43 @@
 <body>
   <header>
     <nav>
-      <div class="nav-wrapper">
-        <a href="#" disabled class="brand-logo">Address Book</a>
-        <ul id="controls" class="right list">
+          <h1>
+              Address Book
+          </h1>
+        <ul id="controls" class="right allView">
 
-          <button id="new" onclick="newContact()" class="waves-effect waves-light btn list"> New
+          <button id="new" onclick="newContact()" class="allView"> New
             <i class="material-icons right">add_circle_outline</i>
           </button>
         </ul>
-        <ul id="controls" class="right edit hide">
+        <ul id="controls" class="right singleView hide">
 
-          <button onclick="backToMain2()" class="waves-effect waves-light btn save hide">
+          <button onclick="backToMain2()" class="edit hide">
             <i class="material-icons left">arrow_back</i>Back
           </button>
-          <button onclick="backToMain()" class="waves-effect waves-light btn view edit hide">
+          <button onclick="backToMain()" class="view singleView hide">
               <i class="material-icons left">arrow_back</i>Back
             </button>
-          <button onclick="toggleEdit()" class="waves-effect waves-light btn view edit hide">
+          <button onclick="toggleEdit()" class="view singleView hide">
             <i class="material-icons left">edit</i>edit
           </button>
-          <button  class="save waves-effect waves-light btn hide" form="contact" type="reset"> Reset
+          <button  class="edit hide" form="contact" type="reset"> Reset
               <i class="material-icons right">clear_all</i>
             </button>
-          <button id="save" class="save waves-effect waves-light btn hide" form="contact" type="submit"> Save
+          <button id="save" class="edit hide" form="contact" type="submit"> Save
             <i class="material-icons right">done</i>
           </button>
         </ul>
-      </div>
     </nav>
   </header>
 
-  <table class="list highlight striped">
+  <table class="allView highlight striped">
 
   </table>
 
-  <div id="edit" class="edit hide">
+  <div id="singleView" class="singleView hide">
 
-    <form action="" id="contact" onsubmit="submitForm(event)">
+    <form class="singleView hide" action="" id="contact" onsubmit="submitForm(event)">
       <fieldset disabled>
         <legend> Full Name of Contact </legend>
         <i class="material-icons prefix">account_circle</i>
@@ -63,7 +61,7 @@
         <i class="material-icons prefix">email</i>
 
         <input type="email" name="contactEmail" placeholder="email">
-        <button class="save hide waves-effect waves-light btn" type="button" id="addEmail">Add email field
+        <button class="edit hide"  type="button" id="addEmail">Add email field
           <i class="material-icons left">add</i>
         </button>
       </fieldset>
@@ -72,16 +70,16 @@
         <legend for="allPhone">Phone</legend>
         <i class="material-icons prefix">phone</i>
         <input type="tel" name="contactPhone" placeholder="phone">
-        <button class="save hide waves-effect waves-light btn" type="button" id="addPhone">Add phone number field
+        <button class="edit hide"  type="button" id="addPhone">Add phone number field
           <i class="material-icons left">add</i>
         </button>
       </fieldset>
-      <fieldset disabled class="save hide">
+      <fieldset disabled class="edit hide">
         <legend>Select photo for contacts</legend>
         <input type="file" name="contactImage" id="image" onchange="loadFile(event)">
       </fieldset>
     </form>
-    <aside>
+    <aside class="singleView hide">
       <img class="responsive-img circle" id="profilePic" src="img/profile-pic.svg" alt="">
     </aside>
 
