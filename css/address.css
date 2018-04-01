@@ -1,3 +1,66 @@
-.file-field{
-  color: black;
+header {
+  background-color: blue;
+}
+
+body {
+  padding: 0 20px;
+}
+
+input {
+  margin: 10px 0;
+  background-color: orange;
+}
+
+fieldset {
+  border: none;
+}
+
+td:last-child {
+  width: 5px;
+}
+
+td:nth-child(2)>button {
+  width: 100%;
+}
+
+table {
+  font-size: 3em;
+}
+/* .hide{
+  display: none;
+} */
+#controls {
+  display: flex;
+  justify-content: space-around;
+}
+
+#save {
+  align-self: flex-end;
+}
+
+.responsive-img {
+  min-width: 100px;
+  max-width: 200px;
+}
+#edit nav{
+  grid-area: nav;
+}
+form{
+  grid-area: form;
+}
+aside{
+  grid-area: as;
+}
+@media screen and (min-width: 600px) {
+	@supports (display: grid) {
+		#edit {
+			display: grid;
+			grid-template-columns: repeat(6, 1fr) ;
+			grid-template-areas:
+      "nav 	nav  nav 	nav  nav 	nav"
+			"form form form form form as"
+			"form form form form form .";
+		}
+
+	}
 }
