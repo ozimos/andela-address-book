@@ -1,17 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <!--Import materialize.css-->
-   <link rel="stylesheet" href="css/materialize.min.css">
+  <link rel="stylesheet" href="css/address.css">
   <title>Address Book</title>
 </head>
+
 <body>
-<header>Address Book</header>
+  <header>
+    <h1 class="text-center">
+      Address Book
+    </h1>
+    <nav>
+
+      <div class="right allView">
+
+        <button id="new" onclick="newContact()" class="allView"> Add Contact
+        </button>
+      </div>
+      <div class="right singleView hide flexbox">
+
+        <button onclick="backToMain2()" class="edit hide">
+          Back
+        </button>
+        <button onclick="backToMain()" class="view singleView hide">
+          Back
+        </button>
+        <button onclick="toggleEdit()" class="view singleView hide">
+          Edit
+        </button>
+        <button class="edit hide" form="contact" type="reset"> Reset
+        </button>
+        <button id="save" class="edit hide" form="contact" type="submit"> Save
+        </button>
+      </div>
+    </nav>
+  </header>
 <main>
-  <div><a href="details.html"></a></div>
+
+  <table class="allView">
+
+  </table>
+
+  <div id="singleView" class="singleView hide">
+
+    <form class="singleView hide" action="" id="contact" onsubmit="submitForm(event)">
+      <fieldset disabled>
+        <legend> Full Name of Contact </legend>
+        <input type="text" name="contactName" id="contactName" required placeholder="Name">
+      </fieldset>
+      <fieldset disabled id="allEmail">
+        <legend for="allEmail">Email</legend>
+
+        <input type="email" name="contactEmail" placeholder="email">
+        <br>
+        <button class="edit hide" type="button" id="addEmail">Add email field
+        </button>
+      </fieldset>
+
+      <fieldset disabled id="allPhone">
+        <legend for="allPhone">Phone</legend>
+        <input type="tel" name="contactPhone" placeholder="phone">
+        <br>
+        <button class="edit hide" type="button" id="addPhone">Add phone number field
+        </button>
+      </fieldset>
+      <fieldset disabled class="edit hide">
+        <legend>Select photo for contacts</legend>
+        <input type="file" name="contactImage" id="image" onchange="loadFile(event)">
+      </fieldset>
+    </form>
+    <aside class="singleView hide">
+      <img class="fluid-img  " id="profilePic" src="img/profile-pic.svg" alt="">
+    </aside>
+
+  </div>
 </main>
+
+  <script src="js/addressBook.js"></script>
 </body>
+
 </html>
