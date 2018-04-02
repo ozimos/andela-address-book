@@ -56,9 +56,9 @@ function listContacts() {
   let result = '';
   addressBook.forEach((contact) => {
     const row = `<tr>
-<td><button>${contact.name}</button></td>
-<td><button class="btn-floating btn-large cyan"><i class="material-icons">delete</i></button></td>
-</tr>`;
+      <td><button>${contact.name}</button></td>
+      <td><button>X</button></td>
+      </tr>`;
     result += row;
   });
   table.innerHTML = result;
@@ -74,7 +74,7 @@ function listContacts() {
 
 
 function deleteContact() {
-  const row = this.closest('tr').cells[0].innerHTML;
+  const row = this.closest('tr').rowIndex;
   addressBook.splice(row, 1);
   listContacts();
 }
@@ -103,7 +103,7 @@ function viewContact() {
 // form buttons
 // remove field handler
 
-const removeFieldButton = '<button onclick="removeField(event)" class="waves-effect waves-light btn col s1" type="button"><i class="material-icons">close</i></button>';
+const removeFieldButton = '<button onclick="removeField(event)" class="waves-effect waves-light btn col s1" type="button">x</button>';
 
 function removeField(event) {
   event.target.closest('div').remove();
